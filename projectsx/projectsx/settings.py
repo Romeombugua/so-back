@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'social_django',
     'rest_framework_simplejwt.token_blacklist',
     'django_cleanup.apps.CleanupConfig',
+    'whitenoise.runserver_nostatic',
 
 ]
 
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,15 +136,16 @@ CORS_ORIGIN_WHITELIST = ['http://localhost:3000', 'http://localhost:8000']
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+#STATIC_URL = 'static/'
 #STATIC_URL = '/static/'
 #STATIC_ROOT = 'static'
 '''STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static')
 ]'''
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles/')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
