@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-lm9+obg%%ntt8#yw&tx0&=lyaz*#e9od*8v)t5v^-+)+f*gebv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['linguifyhub.us-east-1.elasticbeanstalk.com']
 
 
 
@@ -135,9 +135,11 @@ CORS_ORIGIN_WHITELIST = ['http://localhost:3000', 'http://localhost:8000']
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
+#STATIC_URL = '/static/'
+#STATIC_ROOT = 'static'
+'''STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static')
-]
+]'''
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
