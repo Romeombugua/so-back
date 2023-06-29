@@ -17,6 +17,7 @@ djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 djoser==2.2.0
 frozenlist==1.3.3
+gunicorn==20.1.0
 idna==3.4
 multidict==6.0.4
 oauthlib==3.2.2
