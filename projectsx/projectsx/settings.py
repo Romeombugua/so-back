@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-lm9+obg%%ntt8#yw&tx0&=lyaz*#e9od*8v)t5v^-+)+f*gebv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['linguifyhub.us-east-1.elasticbeanstalk.com']
+ALLOWED_HOSTS = []
 
 
 
