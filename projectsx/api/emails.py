@@ -16,7 +16,7 @@ class ActivationEmail(BaseEmailMessage):
         context["token"] = default_token_generator.make_token(user)
         context["url"] = settings.ACTIVATION_URL.format(**context)
         context["domain"] = ReactUrl.REACT_URL # Your site domain
-        context["protocol"] = "http" # Your site protocol e.g. ("http", "https")
+        context["protocol"] = "https" # Your site protocol e.g. ("http", "https")
         context["site_name"] = SiteName.SITE_NAME
         return context
     
@@ -32,7 +32,7 @@ class PasswordResetEmail(BaseEmailMessage):
         context["token"] = default_token_generator.make_token(user)
         context["url"] = settings.PASSWORD_RESET_CONFIRM_URL.format(**context)
         context["domain"] = ReactUrl.REACT_URL # Your site domain
-        context["protocol"] = "http"
+        context["protocol"] = "https"
         context["site_name"] = SiteName.SITE_NAME # Your site protocol e.g. ("http", "https")
         return context
     
@@ -48,6 +48,6 @@ class PasswordChangedConfirmationEmail(BaseEmailMessage):
         context["token"] = default_token_generator.make_token(user)
         context["url"] = settings.PASSWORD_RESET_CONFIRM_URL.format(**context)
         context["domain"] = ReactUrl.REACT_URL # Your site domain
-        context["protocol"] = "http"
+        context["protocol"] = "https"
         context["site_name"] = SiteName.SITE_NAME # Your site protocol e.g. ("http", "https")
         return context
