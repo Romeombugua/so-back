@@ -155,10 +155,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'info.humorer@gmail.com'
-EMAIL_HOST_PASSWORD = 'zbfgtwrflusafrfc'
+EMAIL_HOST_USER = 'info.linguifyhub@gmail.com'
+EMAIL_HOST_PASSWORD = 'wuenoqepuelcaxpp'
 
-DEFAULT_FROM_EMAIL = 'info.humorer@gmail.com'
+DEFAULT_FROM_EMAIL = 'info.linguifyhub@gmail.com'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
