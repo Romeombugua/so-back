@@ -197,9 +197,10 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     "EMAIL": {
-    "activation": "api.emails.ActivationEmail",
-     'password_reset': 'api.emails.PasswordResetEmail',
-      'password_changed_confirmation': 'api.emails.PasswordChangedConfirmationEmail', # app being your app's name
+        "activation": "api.emails.ActivationEmail",
+        'confirmation': 'api.emails.ConfirmationEmail',
+        'password_reset': 'api.emails.PasswordResetEmail',
+        'password_changed_confirmation': 'api.emails.PasswordChangedConfirmationEmail', # app being your app's name
         },
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
     #'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://127.0.0.1:3000', 'http://127.0.0.1:3000/facebook'],
