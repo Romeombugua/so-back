@@ -85,18 +85,21 @@ class Transcription(models.Model):
             # Construct the file path within the 'transcripts' directory
             file_path = os.path.join(directory_path, text_file_name)
 
-            # Check if the text file already exists
-            if not os.path.exists(file_path):
-                # Write the transcription_text to the text file
-                with open(file_path, 'w', encoding='utf-8') as file:
-                    file.write(self.transcription_text)
+            # Write the transcription_text to the text file
+            with open(file_path, 'w', encoding='utf-8') as file:
+                file.write(self.transcription_text)
 
-                # Open the saved text file and assign it to the transcription_file field
-                with open(file_path, 'rb') as file:
-                    content = file.read()
-                    self.transcription_file.save(text_file_name, ContentFile(content))
-                print(file_path)
+            # Open the saved text file and assign it to the transcription_file field
+            with open(file_path, 'rb') as file:
+                content = file.read()
+                self.transcription_file.save(text_file_name, ContentFile(content))
+            
+            print(file_path)
 
+            # Skip the super().save() call here to avoid recursion when saving transcription_file
+            return
+
+        # Call the parent class's save method for other cases (not involving transcription_file)
         super().save(*args, **kwargs)
 
     def to_json(self):
@@ -139,17 +142,20 @@ class Translation(models.Model):
             # Construct the file path within the 'transcripts' directory
             file_path = os.path.join(directory_path, text_file_name)
 
-            # Check if the text file already exists
-            if not os.path.exists(file_path):
-                # Write the transcription_text to the text file
-                with open(file_path, 'w', encoding='utf-8') as file:
-                    file.write(self.translation_text)
 
-                # Open the saved text file and assign it to the transcription_file field
-                with open(file_path, 'rb') as file:
-                    content = file.read()
-                    self.translation_file.save(text_file_name, ContentFile(content))
+            # Write the transcription_text to the text file
+            with open(file_path, 'w', encoding='utf-8') as file:
+                file.write(self.translation_text)
 
+            # Open the saved text file and assign it to the translation_file field
+            with open(file_path, 'rb') as file:
+                content = file.read()
+                self.translation_file.save(text_file_name, ContentFile(content))
+
+            # Skip the super().save() call here to avoid recursion when saving translation_file
+            return
+
+        # Call the parent class's save method for other cases (not involving translation_file)
         super().save(*args, **kwargs)
 
     def to_json(self):
@@ -173,12 +179,16 @@ class TranscriptionGo(models.Model):
         return f'Transcription {self.id}'
 
     def save(self, *args, **kwargs):
-        if self.transcription_text and not self.transcription_file:
+        if not self.name:
             # Get the original file name from the audio field
             audio_file_name = os.path.basename(self.audio.name)
             
-            # Generate the file name for the text file
-            text_file_name = os.path.splitext(audio_file_name)[0] + '.txt'
+            # Set the name field to the audio file name
+            self.name = os.path.splitext(audio_file_name)[0]
+            
+        if self.transcription_text and not self.transcription_file:
+            # Generate the file name for the text file based on the name field
+            text_file_name = self.name + '.txt'
             
             # Construct the directory path within the 'media' directory
             directory_path = os.path.join(settings.MEDIA_ROOT, 'transcripts')
@@ -189,18 +199,21 @@ class TranscriptionGo(models.Model):
             # Construct the file path within the 'transcripts' directory
             file_path = os.path.join(directory_path, text_file_name)
 
-            # Check if the text file already exists
-            if not os.path.exists(file_path):
-                # Write the transcription_text to the text file
-                with open(file_path, 'w', encoding='utf-8') as file:
-                    file.write(self.transcription_text)
+            # Write the transcription_text to the text file
+            with open(file_path, 'w', encoding='utf-8') as file:
+                file.write(self.transcription_text)
 
-                # Open the saved text file and assign it to the transcription_file field
-                with open(file_path, 'rb') as file:
-                    content = file.read()
-                    self.transcription_file.save(text_file_name, ContentFile(content))
-                print(file_path)
+            # Open the saved text file and assign it to the transcription_file field
+            with open(file_path, 'rb') as file:
+                content = file.read()
+                self.transcription_file.save(text_file_name, ContentFile(content))
+            
+            print(file_path)
 
+            # Skip the super().save() call here to avoid recursion when saving transcription_file
+            return
+
+        # Call the parent class's save method for other cases (not involving transcription_file)
         super().save(*args, **kwargs)
         
     def to_json(self):
@@ -222,12 +235,14 @@ class TranslationGo(models.Model):
         return f'Translation {self.id}'
 
     def save(self, *args, **kwargs):
-        if self.translation_text and not self.translation_file:
+        if not self.name:
             # Get the original file name from the audio field
             audio_file_name = os.path.basename(self.audio.name)
-            
+            self.name = os.path.splitext(audio_file_name)[0]
+
+        if self.translation_text and not self.translation_file:
             # Generate the file name for the text file
-            text_file_name = os.path.splitext(audio_file_name)[0] + '.txt'
+            text_file_name = self.name + '.txt'
             
             # Construct the directory path within the 'media' directory
             directory_path = os.path.join(settings.MEDIA_ROOT, 'translations')
@@ -238,18 +253,20 @@ class TranslationGo(models.Model):
             # Construct the file path within the 'transcripts' directory
             file_path = os.path.join(directory_path, text_file_name)
 
-            # Check if the text file already exists
-            if not os.path.exists(file_path):
-                # Write the transcription_text to the text file
-                with open(file_path, 'w', encoding='utf-8') as file:
-                    file.write(self.translation_text)
 
-                # Open the saved text file and assign it to the transcription_file field
-                with open(file_path, 'rb') as file:
-                    content = file.read()
-                    self.translation_file.save(text_file_name, ContentFile(content))
-                print(file_path)
+            # Write the transcription_text to the text file
+            with open(file_path, 'w', encoding='utf-8') as file:
+                file.write(self.translation_text)
 
+            # Open the saved text file and assign it to the translation_file field
+            with open(file_path, 'rb') as file:
+                content = file.read()
+                self.translation_file.save(text_file_name, ContentFile(content))
+
+            # Skip the super().save() call here to avoid recursion when saving translation_file
+            return
+
+        # Call the parent class's save method for other cases (not involving translation_file)
         super().save(*args, **kwargs)
 
     def to_json(self):
@@ -269,3 +286,9 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return self.name
+
+class Feedback(models.Model):
+    message = models.TextField()
+
+    def __str__(self):
+        return f"Feedback {self.id}"

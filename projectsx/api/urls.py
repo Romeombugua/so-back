@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import TranscriptionViewSet, TranslationViewSet, TranscriptionGoViewSet, TranslationGoViewSet, TheOfficeViewSet, ContactMessageViewSet, UserAccountViewSet
+from .views import TranscriptionViewSet, TranslationViewSet, TranscriptionGoViewSet, TranslationGoViewSet, TheOfficeViewSet, ContactMessageViewSet, UserAccountViewSet, FeedbackViewSet
 
 urlpatterns = [
     path('transcripts', TranscriptionViewSet.as_view({
@@ -60,6 +60,10 @@ urlpatterns = [
         'patch': 'partial_update',
         'delete': 'destroy'})),
     path('contactus', ContactMessageViewSet.as_view({
+        'get': 'list', 
+        'post': 'create'
+        })),
+    path('feedback', FeedbackViewSet.as_view({
         'get': 'list', 
         'post': 'create'
         })),

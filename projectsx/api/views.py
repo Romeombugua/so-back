@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
-from .models import Transcription, Translation, UserAccount, TranscriptionGo, TranslationGo, ContactMessage
+from .models import Transcription, Translation, UserAccount, TranscriptionGo, TranslationGo, ContactMessage, Feedback
 import openai
-from .serializers import TranscriptionSerializer, TranslationSerializer, TranscriptionGoSerializer, TranslationGoSerializer, ContactMessageSerializer, UserAccountSerializer
+from .serializers import TranscriptionSerializer, TranslationSerializer, TranscriptionGoSerializer, TranslationGoSerializer, ContactMessageSerializer, UserAccountSerializer, FeedbackSerializer
 from .constants import ApiKeys
 from django.conf import settings
 from django.http import HttpResponse
@@ -232,3 +232,9 @@ class UserAccountViewSet(viewsets.ModelViewSet):
         user.remaining_free_minutes = remaining_free_minutes
         user.save()
         return Response({'remainingfreeminutes': remaining_free_minutes})
+
+class FeedbackViewSet(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    queryset = Feedback.objects.all()
+    serializer_class = FeedbackSerializer
