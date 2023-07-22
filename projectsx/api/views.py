@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from .models import Transcription, Translation, UserAccount, TranscriptionGo, TranslationGo, ContactMessage
 import openai
-from .serializers import TranscriptionSerializer, TranslationSerializer, TranscriptionGoSerializer, TranslationGoSerializer, ContactMessageSerializer
+from .serializers import TranscriptionSerializer, TranslationSerializer, TranscriptionGoSerializer, TranslationGoSerializer, ContactMessageSerializer, UserAccountSerializer
 from .constants import ApiKeys
 from django.conf import settings
 from django.http import HttpResponse
@@ -14,6 +14,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 from django.contrib.sites.shortcuts import get_current_site
+from rest_framework import status
 
 
 class TranscriptionViewSet(viewsets.ModelViewSet):
@@ -72,6 +73,24 @@ class TranscriptionViewSet(viewsets.ModelViewSet):
         serializer = TranscriptionSerializer(transcriptions, many=True)
         return Response(serializer.data)
     
+    def update_remaining_free_minutes(self, request):
+        new_remaining_free_minutes = request.data.get('remaining_free_minutes')
+
+        if new_remaining_free_minutes is None:
+            return Response(
+                {'detail': 'Please provide the new value for remaining free minutes.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        user = request.user
+        user.remaining_free_minutes = new_remaining_free_minutes
+        user.save()
+
+        return Response(
+            {'detail': 'Remaining free minutes updated successfully.'},
+            status=status.HTTP_200_OK
+        )
+    
 class TranslationViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -93,7 +112,6 @@ class TranslationViewSet(viewsets.ModelViewSet):
             translation_text=translation_text,
             user=request.user
         )
-        print(translation_text)
         
         translation.save()
 
@@ -169,7 +187,6 @@ class TranslationGoViewSet(viewsets.ModelViewSet):
             audio=audio_file,
             translation_text=translation_text,
         )
-        print(translation_text)
         
         translation.save()
 
@@ -194,3 +211,24 @@ class ContactMessageViewSet(viewsets.ModelViewSet):
     authentication_classes = []
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
+
+
+class UserAccountViewSet(viewsets.ModelViewSet):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    queryset = UserAccount.objects.all()
+    serializer_class = UserAccountSerializer
+
+    @action(detail=False, methods=['GET'])
+    def get_remaining_free_minutes(self, request, user_id):
+        user = get_object_or_404(UserAccount, pk=user_id)
+        remaining_free_minutes = user.remaining_free_minutes
+        return Response({'remainingfreeminutes': remaining_free_minutes})
+
+    @action(detail=False, methods=['POST'])
+    def update_remaining_free_minutes(self, request, user_id):
+        user = get_object_or_404(UserAccount, pk=user_id)
+        remaining_free_minutes = request.data.get('remainingfreeminutes')
+        user.remaining_free_minutes = remaining_free_minutes
+        user.save()
+        return Response({'remainingfreeminutes': remaining_free_minutes})

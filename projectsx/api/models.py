@@ -35,6 +35,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    remaining_free_minutes = models.FloatField(default=12.0)  # New field to store remaining free minutes
 
     objects = UserAccountManager()
 
