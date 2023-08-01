@@ -1,0 +1,9 @@
+1
+00:00:00,000 --> 00:00:06,120
+Your call is very important to us, stay on the line and you will be answered by the first released operator.
+
+2
+00:00:06,120 --> 00:00:09,720
+We remind you that you can make an order on our website.
+
+

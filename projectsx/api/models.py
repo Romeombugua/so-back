@@ -170,6 +170,7 @@ class Translation(models.Model):
     
 
 class TranscriptionGo(models.Model):
+    name = models.CharField(max_length=255, blank=True)
     audio = models.FileField(upload_to='audio/transcribe/')
     transcription_text = models.TextField(blank=True)
     transcription_file = models.FileField(upload_to='transcripts/', blank=True)
@@ -226,6 +227,7 @@ class TranscriptionGo(models.Model):
 
 
 class TranslationGo(models.Model):
+    name = models.CharField(max_length=255, blank=True)
     audio = models.FileField(upload_to='audio/translate/')
     translation_text = models.TextField(blank=True)
     translation_file = models.FileField(upload_to='translations/', blank=True)
@@ -292,3 +294,25 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f"Feedback {self.id}"
+    
+STATUS = (
+    (0,"Draft"),
+    (1,"Publish")
+)
+    
+class Article(models.Model):
+    author = models.CharField(max_length= 100)
+    author_image = models.ImageField(upload_to = 'images/authors', blank=True)
+    author_description = models.CharField(max_length=100, blank=True)
+    title = models.CharField(max_length = 100)
+    top_image = models.ImageField(upload_to = 'images/blogimages', blank=True)
+    content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    status = models.IntegerField(choices=STATUS, default=0)
+
+
+    class Meta:
+        ordering = ['-created_on']
+
+    def __str__(self):
+        return self.title

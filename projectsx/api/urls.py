@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import TranscriptionViewSet, TranslationViewSet, TranscriptionGoViewSet, TranslationGoViewSet, TheOfficeViewSet, ContactMessageViewSet, UserAccountViewSet, FeedbackViewSet
+from .views import TranscriptionViewSet, TranslationViewSet, TranscriptionGoViewSet, TranslationGoViewSet, TheOfficeViewSet, ContactMessageViewSet, UserAccountViewSet, FeedbackViewSet, ArticleViewSet
 
 urlpatterns = [
     path('transcripts', TranscriptionViewSet.as_view({
@@ -71,4 +71,13 @@ urlpatterns = [
         'get': 'get_remaining_free_minutes',
         'post': 'update_remaining_free_minutes'
     })),
+    path('blogs', ArticleViewSet.as_view({
+        'get': 'list',
+        'post':'create'
+    })),
+    path('blogs/<int:pk>', ArticleViewSet.as_view({
+        'get': 'retrieve',
+        'put': 'update',
+        'patch': 'partial_update',
+        'delete': 'destroy'})),
 ]

@@ -131,7 +131,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000', 'http://localhost:8000']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -239,8 +238,7 @@ CORS_ALLOW_HEADERS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-     "http://localhost:3000",
-     "http://127.0.0.1:3000", 
+     "https://www.linguifyhub.tech",
 ]
 
-CSRF_TRUSTED_ORIGINS=['https://so-back-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS=['https://soback.us.to']

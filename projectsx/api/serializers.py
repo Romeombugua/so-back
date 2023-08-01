@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Transcription, Translation, TranscriptionGo, TranslationGo, ContactMessage, UserAccount, Feedback
+from .models import Transcription, Translation, TranscriptionGo, TranslationGo, ContactMessage, UserAccount, Feedback, Article
 from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -42,4 +42,9 @@ class ContactMessageSerializer(serializers.ModelSerializer):
 class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
+        fields = '__all__'
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
         fields = '__all__'
