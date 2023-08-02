@@ -305,7 +305,7 @@ class Article(models.Model):
     author_image = models.ImageField(upload_to = 'images/authors', blank=True)
     author_description = models.CharField(max_length=100, blank=True)
     title = models.CharField(max_length = 100)
-    top_image = models.ImageField(upload_to = 'images/blogimages', blank=True)
+    top_image = models.CharField(max_length=100, blank=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)

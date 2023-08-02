@@ -151,13 +151,13 @@ MEDIA_URL = '/media/'
 
 # Email server
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'us2.smtp.mailhostbox.com'
+EMAIL_HOST = 'smtppro.zoho.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'accounts@linguifyhub.tech'
-EMAIL_HOST_PASSWORD = 'FJSxRrf2'
+EMAIL_HOST_USER = 'accounts@linguifyhub.com'
+EMAIL_HOST_PASSWORD = 'Hzcqupkr0QXz'
 
-DEFAULT_FROM_EMAIL = 'accounts@linguifyhub.tech'
+DEFAULT_FROM_EMAIL = 'accounts@linguifyhub.com'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
