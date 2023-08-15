@@ -1,6 +1,6 @@
 
 class ApiKeys:
-    API_KEY = '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'
+    API_KEY = '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'
 
 class ReactUrl:
       REACT_URL = 'linguifyhub.com'
